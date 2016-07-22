@@ -18,8 +18,6 @@ import styles from '../styles/common-styles.js';
 
 import firebase from 'firebase';
 
-//let app = new Firebase("https://funshare-c6017.firebaseio.com");
-
 
 export default class account extends Component {
 
@@ -33,14 +31,12 @@ export default class account extends Component {
   }
 
   componentWillMount(){
-
-    AsyncStorage.getItem('user_data').then((user_data_json) => {
-      let user_data = JSON.parse(user_data_json);
+    var user = firebase.auth().currentUser;
       this.setState({
-        user: user_data,
+        user: user,
         loaded: true
       });
-    });
+  
 
   }
 
@@ -54,11 +50,14 @@ export default class account extends Component {
           this.state.user &&
             <View style={styles.body}>
               <View style={page_styles.email_container}>
-                <Text style={page_styles.email_text}>{this.state.user.password.email}</Text>
+                <Text style={page_styles.email_text}>{this.state.user.email}</Text>
+              </View>
+              <View style={page_styles.email_container}>
+                <Text style={page_styles.email_text}>{this.state.user.uid}</Text>
               </View>
               <Image
                 style={styles.image}
-                source={{uri: this.state.user.password.profileImageURL}}
+                source={{uri: this.state.user.photoURL}}
               />
               <Button
                   text="Logout"

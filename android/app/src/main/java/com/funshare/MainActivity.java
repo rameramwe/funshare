@@ -1,10 +1,7 @@
 package com.funshare;
 
 import com.facebook.react.ReactActivity;
-import android.content.Intent;
-import android.os.Bundle;
-import com.facebook.FacebookSdk;
-import com.facebook.CallbackManager;
+import com.imagepicker.ImagePickerPackage;
 
 public class MainActivity extends ReactActivity {
 
