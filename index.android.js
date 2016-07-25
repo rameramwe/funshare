@@ -4,6 +4,7 @@
  * @flow
  */
 'use strict';
+
 import React, { Component } from 'react';
 import  {
   AppRegistry,
@@ -28,8 +29,7 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 
-
-  
+import RootNavigator from 'funshare/RootNavigator';
 
 import styles from './src/styles/common-styles.js';
 
@@ -75,17 +75,9 @@ if (user) {
 
     if(this.state.component){
       return (
-        <Navigator
-          initialRoute={{component: this.state.component}}
-          configureScene={() => {
-            return Navigator.SceneConfigs.FloatFromRight;
-          }}
-          renderScene={(route, navigator) => {
-            if(route.component){
-              return React.createElement(route.component, { navigator });
-            }
-          }}
-        />
+         <View style={styles.container}>
+        <RootNavigator ref="rootNavigator" />
+      </View>
       );
     }else{
       return (

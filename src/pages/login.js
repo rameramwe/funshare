@@ -106,7 +106,7 @@ var ImagePicker = require('react-native-image-picker');
 
 // More info on all the options is below in the README...just some common use cases shown here
 var options = {
-  title: 'Select Avatar',
+  title: 'Add a thing to exchange  ',
   customButtons: {
     'Choose Photo from Facebook': 'fb',
   },
@@ -150,23 +150,8 @@ ImagePicker.showImagePicker(options, (response) => {
 });
   }
   loginfb(){
-    var provider = new firebase.auth.FacebookAuthProvider();
-    firebase.auth().signInWithPopup(provider).then(function(result) {
-  // This gives you a Facebook Access Token. You can use it to access the Facebook API.
-  var token = result.credential.accessToken;
-  // The signed-in user info.
-  var user = result.user;
-  // ...
-}).catch(function(error) {
-  // Handle Errors here.
-  var errorCode = error.code;
-  var errorMessage = error.message;
-  // The email of the user's account used.
-  var email = error.email;
-  // The firebase.auth.AuthCredential type that was used.
-  var credential = error.credential;
-  // ...
-});
+    
+
   }
 
 }

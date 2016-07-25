@@ -4,3 +4,5 @@ include ':app'
 
 include ':react-native-image-picker'
 project(':react-native-image-picker').projectDir = new File(settingsDir, '../node_modules/react-native-image-picker/android')	
+include ':react-native-fbsdk'
+project(':react-native-fbsdk').projectDir = new File(settingsDir, '../node_modules/react-native-fbsdk/Android')

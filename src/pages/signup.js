@@ -8,6 +8,7 @@ import  {
 } from 'react-native';
 
 import Button from '../components/button';
+import Routes from 'funshare/Routes';
 import Header from '../components/header';
 
 import Login from './login';
@@ -18,6 +19,33 @@ import firebase from 'firebase';
 
 
 import styles from '../styles/common-styles.js';
+const FBSDK = require('react-native-fbsdk');
+const {
+  LoginButton,
+} = FBSDK;
+
+var Loginfbb = React.createClass({
+  render: function() {
+    return (
+      <View>
+        <LoginButton
+          publishPermissions={["publish_actions"]}
+          onLoginFinished={
+            (error, result) => {
+              if (error) {
+                alert("Login failed with error: " + result.error);
+              } else if (result.isCancelled) {
+                alert("Login was cancelled");
+              } else {
+                alert("Login was successful with permissions: " + result.grantedPermissions)
+              }
+            }
+          }
+          onLogoutFinished={() => alert("User logged out")}/>
+      </View>
+    );
+  }
+});
 
 export default class signup extends Component {
 
@@ -44,12 +72,12 @@ export default class signup extends Component {
       if (error) {
          alert(error.code);
 
-      } 
+      }
         alert("Your account was created!");
-      
-      
 
-      
+
+
+
 
 });
 
@@ -57,44 +85,18 @@ export default class signup extends Component {
   }
 
   goToLogin(){
-    this.props.navigator.push({
-      component: Login
-    });
+    this.props.replaceRoute(Routes.login);
   }
 
   render() {
-    return (
-      <View style={styles.container}>
-        <Header text="Signup" loaded={this.state.loaded} />
-        <View style={styles.body}>
+     return (
+      <View>
+        <Text>Welcome to the Facebook SDK for React Native!</Text>
 
-            <TextInput
-                style={styles.textinput}
-                onChangeText={(text) => this.setState({email: text})}
-                value={this.state.email}
-            placeholder={"Email Address"}
-            />
-          <TextInput
-            style={styles.textinput}
-            onChangeText={(text) => this.setState({password: text})}
-            value={this.state.password}
-            secureTextEntry={true}
-            placeholder={"Password"}
-          />
-          <Button
-            text="Signup"
-            onpress={this.signup.bind(this)}
-            button_styles={styles.primary_button}
-            button_text_styles={styles.primary_button_text} />
-
-          <Button
-            text="Got an Account?"
-            onpress={this.goToLogin.bind(this)}
-            button_styles={styles.transparent_button}
-            button_text_styles={styles.transparent_button_text} />
-        </View>
+        <Loginfbb />
       </View>
     );
+
   }
 }
 
