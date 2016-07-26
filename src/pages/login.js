@@ -20,6 +20,36 @@ import firebase from 'firebase';
 //let app = new Firebase("https://funshare-c6017.firebaseio.com");
 
 import styles from '../styles/common-styles.js';
+const FBSDK = require('react-native-fbsdk');
+const {
+  LoginButton,
+} = FBSDK;
+
+var Loginfbb = React.createClass({
+
+  render: function() {
+    return (
+      <View>
+        <LoginButton
+          publishPermissions={["publish_actions"]}
+          onLoginFinished={
+            (error, result) => {
+              if (error) {
+                alert("Login failed with error: " + result.error);
+              } else if (result.isCancelled) {
+                alert("Login was cancelled");
+              } else {
+                
+                alert("Login was successful with permissions: " + result.grantedPermissions)
+              }
+            }
+          }
+          onLogoutFinished={() => alert("User logged out")}/>
+      </View>
+    );
+  }
+});
+
 
 export default class login extends Component {
 
@@ -57,11 +87,8 @@ export default class login extends Component {
             onpress={this.login.bind(this)}
             button_styles={styles.primary_button}
             button_text_styles={styles.primary_button_text} />
-            <Button
-            text="Login with facebook"
-            onpress={this.loginfb.bind(this)}
-            button_styles={styles.primary_button}
-            button_text_styles={styles.primary_button_text} />
+
+            <Loginfbb />
 
           <Button
             text="New here?"
@@ -80,7 +107,7 @@ export default class login extends Component {
     });
 
 
-    
+
 firebase.auth().signInWithEmailAndPassword(
        this.state.email,
       this.state.password
@@ -94,8 +121,8 @@ firebase.auth().signInWithEmailAndPassword(
 
     this.props.navigator.push({
           component: Account
-        });  
-    
+        });
+
 
 
   }
@@ -150,7 +177,7 @@ ImagePicker.showImagePicker(options, (response) => {
 });
   }
   loginfb(){
-    
+
 
   }
 
