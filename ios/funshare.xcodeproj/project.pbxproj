@@ -24,6 +24,9 @@
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		079C0751BC0F4F929B6EC66A /* libRCTFBSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D6EBE3FA6A94433A0EDD7E8 /* libRCTFBSDK.a */; };
 		A6D7111E2E0E4BAB9672D6D7 /* libRNImagePicker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DB37DE27DED4880B2ADB121 /* libRNImagePicker.a */; };
+		E83137F31B4842A2AFB792A8 /* libRCTFBSDKCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B946092D7214E94BFE9E5A4 /* libRCTFBSDKCore.a */; };
+		1D585365A0C14437B7045722 /* libRCTFBSDKLogin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 70756E318CA6492F8BFFF461 /* libRCTFBSDKLogin.a */; };
+		07F0B6B625064A85B47BD20E /* libRCTFBSDKShare.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AFFF479E615046A4ACB8CF4A /* libRCTFBSDKShare.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -132,6 +135,12 @@
 		8D6EBE3FA6A94433A0EDD7E8 /* libRCTFBSDK.a */ = {isa = PBXFileReference; name = "libRCTFBSDK.a"; path = "libRCTFBSDK.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		A86D130C45A84FEAA3295085 /* RNImagePicker.xcodeproj */ = {isa = PBXFileReference; name = "RNImagePicker.xcodeproj"; path = "../node_modules/react-native-image-picker/ios/RNImagePicker.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		1DB37DE27DED4880B2ADB121 /* libRNImagePicker.a */ = {isa = PBXFileReference; name = "libRNImagePicker.a"; path = "libRNImagePicker.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		BE1E4F7C36BB42F2B21A8442 /* RCTFBSDKCore.xcodeproj */ = {isa = PBXFileReference; name = "RCTFBSDKCore.xcodeproj"; path = "../node_modules/react-native-fbsdkcore/RCTFBSDKCore.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		6B946092D7214E94BFE9E5A4 /* libRCTFBSDKCore.a */ = {isa = PBXFileReference; name = "libRCTFBSDKCore.a"; path = "libRCTFBSDKCore.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		BB32CF0ABFC0463C87A5B42D /* RCTFBSDKLogin.xcodeproj */ = {isa = PBXFileReference; name = "RCTFBSDKLogin.xcodeproj"; path = "../node_modules/react-native-fbsdklogin/RCTFBSDKLogin.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		70756E318CA6492F8BFFF461 /* libRCTFBSDKLogin.a */ = {isa = PBXFileReference; name = "libRCTFBSDKLogin.a"; path = "libRCTFBSDKLogin.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		18A934773D5943C8BE805BC7 /* RCTFBSDKShare.xcodeproj */ = {isa = PBXFileReference; name = "RCTFBSDKShare.xcodeproj"; path = "../node_modules/react-native-fbsdkshare/RCTFBSDKShare.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		AFFF479E615046A4ACB8CF4A /* libRCTFBSDKShare.a */ = {isa = PBXFileReference; name = "libRCTFBSDKShare.a"; path = "libRCTFBSDKShare.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,6 +168,9 @@
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				079C0751BC0F4F929B6EC66A /* libRCTFBSDK.a in Frameworks */,
 				A6D7111E2E0E4BAB9672D6D7 /* libRNImagePicker.a in Frameworks */,
+				E83137F31B4842A2AFB792A8 /* libRCTFBSDKCore.a in Frameworks */,
+				1D585365A0C14437B7045722 /* libRCTFBSDKLogin.a in Frameworks */,
+				07F0B6B625064A85B47BD20E /* libRCTFBSDKShare.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -283,6 +295,9 @@
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				B18828D4E84544028E4221BF /* RCTFBSDK.xcodeproj */,
 				A86D130C45A84FEAA3295085 /* RNImagePicker.xcodeproj */,
+				BE1E4F7C36BB42F2B21A8442 /* RCTFBSDKCore.xcodeproj */,
+				BB32CF0ABFC0463C87A5B42D /* RCTFBSDKLogin.xcodeproj */,
+				18A934773D5943C8BE805BC7 /* RCTFBSDKShare.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -599,6 +614,9 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Debug;
@@ -617,6 +635,9 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
+					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Release;
@@ -632,6 +653,9 @@
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/iOS/RCTFBSDK/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-fbsdkcore/iOS",
+					"$(SRCROOT)/../node_modules/react-native-fbsdklogin/iOS",
+					"$(SRCROOT)/../node_modules/react-native-fbsdkshare/iOS",
 				);
 				INFOPLIST_FILE = "funshare/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -654,6 +678,9 @@
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/iOS/RCTFBSDK/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-fbsdkcore/iOS",
+					"$(SRCROOT)/../node_modules/react-native-fbsdklogin/iOS",
+					"$(SRCROOT)/../node_modules/react-native-fbsdkshare/iOS",
 				);
 				INFOPLIST_FILE = "funshare/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -706,6 +733,9 @@
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/iOS/RCTFBSDK/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-fbsdkcore/iOS",
+					"$(SRCROOT)/../node_modules/react-native-fbsdklogin/iOS",
+					"$(SRCROOT)/../node_modules/react-native-fbsdkshare/iOS",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -748,6 +778,9 @@
 					"$(SRCROOT)/../node_modules/react-native/React/**",
 					"$(SRCROOT)/../node_modules/react-native-fbsdk/iOS/RCTFBSDK/**",
 					"$(SRCROOT)/../node_modules/react-native-image-picker/ios/**",
+					"$(SRCROOT)/../node_modules/react-native-fbsdkcore/iOS",
+					"$(SRCROOT)/../node_modules/react-native-fbsdklogin/iOS",
+					"$(SRCROOT)/../node_modules/react-native-fbsdkshare/iOS",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;

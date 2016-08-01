@@ -1,25 +1,51 @@
 'use strict';
 import React, { Component } from 'react';
-import  {
-  AppRegistry,
+import {
+  StyleSheet,
+  PropTypes,
   Text,
+  TouchableOpacity,
   View,
-  TouchableHighlight
+  AppRegistry
 } from 'react-native';
 
-export default class button extends Component {
+import StyleVars from 'funshare/StyleVars';
 
-  render(){
+const styles = StyleSheet.create({
+  button: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 5,
+    padding:10,
+    marginTop: 15,
+    margin:10,
+    overflow: "hidden",
+    backgroundColor: '#00FF00'
+  },
+  buttonText: {
+    color: "white",
+    fontFamily: StyleVars.Fonts.general,
+    fontSize: 14,
+    fontWeight: "400"
+  }
+});
+
+export default class button extends Component {
+  render() {
+    let textStyle = [styles.buttonText, this.props.textStyle];
+
     return (
-      <View>
-        <TouchableHighlight underlayColor={"#E8E8E8"} onPress={this.props.onpress} style={this.props.button_styles}>
-          <View>
-              <Text style={this.props.button_text_styles}>{this.props.text}</Text>
-          </View>
-        </TouchableHighlight>
-      </View>
-    );
+      <TouchableOpacity
+        activeOpacity={this.props.activeOpacity}
+        onPress={this.props.onpress}
+        style={styles.button}
+      >
+        <Text style={styles.buttonText}>{this.props.text}</Text>
+      </TouchableOpacity>
+      );
   }
 }
+    AppRegistry.registerComponent('button', () => button);
+ 
 
-AppRegistry.registerComponent('button', () => button);

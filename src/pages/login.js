@@ -6,18 +6,19 @@ import {
   Text,
   TextInput,
   View,
+  Image,
   AsyncStorage
 } from 'react-native';
 
 import Button from '../components/button';
 import Header from '../components/header';
-
+import Reflux from 'reflux';
+import DataStore from 'funshare/DataStore';
+import Actions from 'funshare/Actions';
 import Signup from './signup';
 import Account from './account';
-
+import Routes from 'funshare/Routes';
 import firebase from 'firebase';
-
-//let app = new Firebase("https://funshare-c6017.firebaseio.com");
 
 import styles from '../styles/common-styles.js';
 const FBSDK = require('react-native-fbsdk');
@@ -25,79 +26,110 @@ const {
   LoginButton,
 } = FBSDK;
 
-var Loginfbb = React.createClass({
 
-  render: function() {
-    return (
-      <View>
-        <LoginButton
-          publishPermissions={["publish_actions"]}
-          onLoginFinished={
-            (error, result) => {
-              if (error) {
-                alert("Login failed with error: " + result.error);
-              } else if (result.isCancelled) {
-                alert("Login was cancelled");
-              } else {
-                
-                alert("Login was successful with permissions: " + result.grantedPermissions)
-              }
-            }
-          }
-          onLogoutFinished={() => alert("User logged out")}/>
-      </View>
-    );
-  }
-});
 
 
 export default class login extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props);
+    this.state = { isSignup: false };
 
-    this.state = {
-      email: '',
-      password: '',
-      loaded: true
-    }
+    this.email = null;
+    this.password = null;
+    this.passwordConfirmation = null;
   }
+
+  componentDidMount() {
+    Actions.loadUser.completed.listen(this.onLoadUserCompleted.bind(this));
+  }
+
 
   render(){
     return (
-      <View style={styles.container}>
-        <Header text="Login" loaded={this.state.loaded} />
-        <View style={styles.body}>
-          <TextInput
-            style={styles.textinput}
-            onChangeText={(text) => this.setState({email: text})}
-            value={this.state.email}
-            placeholder={"Email Address"}
-          />
-          <TextInput
-            style={styles.textinput}
-            onChangeText={(text) => this.setState({password: text})}
-            value={this.state.password}
-            secureTextEntry={true}
-            placeholder={"Password"}
-          />
+      <Image
+      resizeMode={Image.resizeMode.cover}
+      source={require('../img/background.png')}
+      style = {styles.backgroundImage}
+      >
 
-          <Button
-            text="Login"
-            onpress={this.login.bind(this)}
-            button_styles={styles.primary_button}
-            button_text_styles={styles.primary_button_text} />
+      
+      <View style={styles.LogoComponent}>
 
-            <Loginfbb />
+      <Image 
+      resizeMode={Image.resizeMode.contain}
+      source={require('../img/font-logo.png')}
+      style={styles.fLogo}                                
+      />
 
-          <Button
-            text="New here?"
-            onpress={this.goToSignup.bind(this)}
-            button_styles={styles.transparent_button}
-            button_text_styles={styles.transparent_button_text} />
-        </View>
+      <Image 
+      resizeMode={Image.resizeMode.contain}
+      source={require('../img/Logo.png')}
+      style={styles.Logo}                                
+      />
+
+      
       </View>
-    );
+      <View>
+
+      <TextInput
+      style={styles.textinput}
+      onChangeText={(text) => this.setState({password: text})}
+      value={this.state.password}
+      secureTextEntry={true}
+      placeholder={"user name"}
+      />
+
+      <TextInput
+      style={styles.textinput}
+      onChangeText={(text) => this.setState({email: text})}
+      value={this.state.email}
+      placeholder={"Email Address"}
+      />
+      <TextInput
+      style={styles.textinput}
+      onChangeText={(text) => this.setState({password: text})}
+      value={this.state.password}
+      secureTextEntry={true}
+      placeholder={"Password"}
+      />
+
+      
+
+      <Button
+      text="Login"
+      onpress={this.login.bind(this)}
+      button_styles={styles.primary_button}
+      button_text_styles={styles.primary_button_text} />
+
+
+      
+
+
+      <View style={{flex: 1, alignItems: 'center', margin: 10}}>
+      <View> 
+
+      <LoginButton
+      publishPermissions={["publish_actions"]}
+      onLoginFinished={
+        (error, result) => {
+          if (error) {
+            alert("Login failed with error: " + result.error);
+          } else if (result.isCancelled) {
+            alert("Login was cancelled");
+          } else {
+            
+            alert("Login was successful with permissions: " + result.grantedPermissions)
+          }
+        }
+      }
+      onLogoutFinished={() => alert("User logged out")}/>
+      </View></View>
+      </View>
+      
+      
+      </Image>
+      );
   }
 
   login(){
@@ -105,31 +137,23 @@ export default class login extends Component {
     this.setState({
       loaded: false
     });
+    Actions.login({
+      email: this.state.email,
+      password: this.state.password
+    });
 
 
 
-firebase.auth().signInWithEmailAndPassword(
-       this.state.email,
-      this.state.password
-   ).then(function() {
-  alert("Sign-in successful");
-
-}, function(error) {
-  alert("Sign-in failed");
-});
 
 
-    this.props.navigator.push({
-          component: Account
-        });
+ //   this.props.replaceRoute(Routes.account());
 
 
+}
 
-  }
-
-  goToSignup(){
-    var Platform = require('react-native').Platform;
-var ImagePicker = require('react-native-image-picker');
+goToSignup(){
+  var Platform = require('react-native').Platform;
+  var ImagePicker = require('react-native-image-picker');
 
 // More info on all the options is below in the README...just some common use cases shown here
 var options = {
@@ -147,7 +171,7 @@ var options = {
  * The first arg is the options object for customization (it can also be null or omitted for default options),
  * The second arg is the callback which sends object: response (more info below in README)
  */
-ImagePicker.showImagePicker(options, (response) => {
+ ImagePicker.showImagePicker(options, (response) => {
   console.log('Response = ', response);
 
   if (response.didCancel) {
@@ -175,11 +199,16 @@ ImagePicker.showImagePicker(options, (response) => {
     });
   }
 });
-  }
-  loginfb(){
+}
+loginfb(){
 
 
-  }
+}
+onLoadUserCompleted(user) {
+  
+  this.props.replaceRoute(Routes.home());
+  
+}
 
 }
 

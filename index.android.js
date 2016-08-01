@@ -1,12 +1,7 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-'use strict';
+ 'use strict';
 
-import React, { Component } from 'react';
-import  {
+ import React, { Component } from 'react';
+ import  {
   AppRegistry,
   Text,
   View,
@@ -16,80 +11,36 @@ import  {
 
 import Signup from './src/pages/signup';
 import Account from './src/pages/account';
-
 import Header from './src/components/header';
-
 import * as firebase from 'firebase';
+import RootNavigator from 'funshare/RootNavigator';
+import styles from './src/styles/common-styles.js';
+
 // Initialize Firebase
 const firebaseConfig = {
-    apiKey: "AIzaSyDzt6PA0xNFPWo7GiZL1HFkbw7U77-B9_M",
-    authDomain: "funshare-c6017.firebaseapp.com",
-    databaseURL: "https://funshare-c6017.firebaseio.com",
-    storageBucket: "funshare-c6017.appspot.com",
+  apiKey: "AIzaSyDzt6PA0xNFPWo7GiZL1HFkbw7U77-B9_M",
+  authDomain: "funshare-c6017.firebaseapp.com",
+  databaseURL: "https://funshare-c6017.firebaseio.com",
+  storageBucket: "funshare-c6017.appspot.com",
 };
 firebase.initializeApp(firebaseConfig);
 
-import RootNavigator from 'funshare/RootNavigator';
-
-import styles from './src/styles/common-styles.js';
 
 class funshare extends Component {
-
-  constructor(props){
-    super(props);
-    this.state = {
-      component: null,
-      loaded: false
-    };
-  }
-
-  componentWillMount(){
-
-    AsyncStorage.getItem('user_data').then((user_data_json) => {
-
-      let user_data = JSON.parse(user_data_json);
-      let component = {component: Signup};
-      if(user_data != null){
-        app.authWithCustomToken(user_data.token, (error, authData) => {
-          if(error){
-            this.setState(component);
-          }else{
-            this.setState({component: Account});
-          }
-        });
-      }else{
-        this.setState(component);
-      }
-    });
-
-  }
 
   render(){
     var user = firebase.auth().currentUser;
 
-if (user) {
- alert("user is signed in ");
-} else {
-  alert("no user is signed in ");
-}
-
-    if(this.state.component){
-      return (
-         <View style={styles.container}>
-        <RootNavigator ref="rootNavigator" />
-      </View>
-      );
-    }else{
-      return (
-        <View style={styles.container}>
-          <Header text="React Native Firebase Auth" loaded={this.state.loaded} />
-          <View style={styles.body}></View>
-        </View>
-      );
-    }
-
+    if (user) {
+     alert("user is signed in ");
+   } else {
+    alert("no user is signed in ");
   }
-
+  return (
+   <View style={styles.container}>
+   <RootNavigator ref="rootNavigator" />
+   </View>
+   );
+ }
 }
-
 AppRegistry.registerComponent('funshare', () => funshare);

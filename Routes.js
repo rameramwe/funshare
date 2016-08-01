@@ -1,7 +1,9 @@
 'use strict';
 
+import Home from 'funshare/src/pages/Home';
 import login from 'funshare/src/pages/login';
 import signup from 'funshare/src/pages/signup';
+import account from 'funshare/src/pages/account';
 import button from 'funshare/src/components/button';
 
 
@@ -16,6 +18,7 @@ class Routes {
   }
 
   
+ 
 
   login() {
     return {
@@ -24,7 +27,18 @@ class Routes {
       component: login,
       leftButton: button,
       rightButton: button,
-      hideNavigationBar: false,
+      hideNavigationBar: true,
+      statusBarStyle: "light-content"
+    }
+  }
+  Home() {
+    return {
+      name: "Home",
+      title: "Home",
+      component: Home,
+      leftButton: button,
+      rightButton: button,
+      hideNavigationBar: true,
       statusBarStyle: "light-content"
     }
   }
@@ -39,6 +53,17 @@ class Routes {
     }
   }
 
+ account() {
+    return {
+      name: "account",
+      title: "account",
+      component: account,
+      leftButton: button,
+      rightButton: button,
+      hideNavigationBar: false,
+      statusBarStyle: "light-content"
+    }
+  }
   
   
 }
