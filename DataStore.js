@@ -15,15 +15,23 @@ export default Reflux.createStore({
     return currentUser;
   },
   setCurrentUser(uid, user) {
-    currentUser = Object.assign({ uid: uid }, user);
-  },
+  
+
+    currentUser = Object.assign(user);
+      },
 
   onLogin: function (data) {
+      //alert("i'm here 1");
     ApiRequest.login(data)
-      .then((authData) => {
-        AccessToken.set(authData.token)
-          .then(() => Actions.login.completed(authData))
-      })
+      .then((result) => {
+        result.getToken().then(function(data) {
+         // alert(result.uid);
+      AccessToken.set(data)
+          .then(() => Actions.login.completed(result))
+
+    });
+          
+              })
       .catch((err) => Actions.login.failed(err))
   },
   onLoginCompleted: function (data) {
@@ -51,6 +59,7 @@ export default Reflux.createStore({
       .catch((err) => Actions.loadUser.failed(err));
   },
   onLoadUserCompleted: function (uid, user) {
+   
     this.setCurrentUser(uid, user);
   },
   onLoadUserFailed: function (error) {
@@ -60,5 +69,54 @@ export default Reflux.createStore({
   onLogout: function () {
     ApiRequest.logout();
     AccessToken.clear();
+  },
+   onOnboard: function (payload) {
+   
+           firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          alert("datastore");
+          ApiRequest.updateUser(user.uid, payload)
+      .then((user) => Actions.onboard.completed(user))
+      .catch((err) => Actions.onboard.failed(err))
+  
+          }
+});
+    
+  },
+  onUploadPost: function (image) {
+
+
+        ApiRequest.uploadPost(this.getCurrentUser().uid,{
+      userId: this.getCurrentUser().uid,
+      user: this.getCurrentUser().displayName,
+      picture: image,
+      createdAt: new Date().toString(),
+      
+    })
+      .then((data) => Actions.uploadPost.completed(data))
+      .catch((err) => Actions.uploadPost.failed(err));
+
+
+
+
+
+
+
+  /*    firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+              ApiRequest.uploadPost(user.uid,{
+      userId: user.uid,
+      user: this.getCurrentUser().displayName,
+      picture: image,
+      createdAt: new Date().toString(),
+      
+    })
+      .then((data) => Actions.uploadPost.completed(data))
+      .catch((err) => Actions.uploadPost.failed(err));
+        
+  
+          }
+});*/
+    
   }
 });

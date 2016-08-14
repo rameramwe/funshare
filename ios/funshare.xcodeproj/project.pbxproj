@@ -27,6 +27,7 @@
 		E83137F31B4842A2AFB792A8 /* libRCTFBSDKCore.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B946092D7214E94BFE9E5A4 /* libRCTFBSDKCore.a */; };
 		1D585365A0C14437B7045722 /* libRCTFBSDKLogin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 70756E318CA6492F8BFFF461 /* libRCTFBSDKLogin.a */; };
 		07F0B6B625064A85B47BD20E /* libRCTFBSDKShare.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AFFF479E615046A4ACB8CF4A /* libRCTFBSDKShare.a */; };
+		53F89EC30CCB4A11AE2B0731 /* libRNFetchBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 04DCD82BFA824F4693FDDCC6 /* libRNFetchBlob.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -141,6 +142,8 @@
 		70756E318CA6492F8BFFF461 /* libRCTFBSDKLogin.a */ = {isa = PBXFileReference; name = "libRCTFBSDKLogin.a"; path = "libRCTFBSDKLogin.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		18A934773D5943C8BE805BC7 /* RCTFBSDKShare.xcodeproj */ = {isa = PBXFileReference; name = "RCTFBSDKShare.xcodeproj"; path = "../node_modules/react-native-fbsdkshare/RCTFBSDKShare.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		AFFF479E615046A4ACB8CF4A /* libRCTFBSDKShare.a */ = {isa = PBXFileReference; name = "libRCTFBSDKShare.a"; path = "libRCTFBSDKShare.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		25B8CD1A03F04824A21A21BB /* RNFetchBlob.xcodeproj */ = {isa = PBXFileReference; name = "RNFetchBlob.xcodeproj"; path = "../node_modules/react-native-fetch-blob/ios/RNFetchBlob.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		04DCD82BFA824F4693FDDCC6 /* libRNFetchBlob.a */ = {isa = PBXFileReference; name = "libRNFetchBlob.a"; path = "libRNFetchBlob.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +174,7 @@
 				E83137F31B4842A2AFB792A8 /* libRCTFBSDKCore.a in Frameworks */,
 				1D585365A0C14437B7045722 /* libRCTFBSDKLogin.a in Frameworks */,
 				07F0B6B625064A85B47BD20E /* libRCTFBSDKShare.a in Frameworks */,
+				53F89EC30CCB4A11AE2B0731 /* libRNFetchBlob.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,6 +302,7 @@
 				BE1E4F7C36BB42F2B21A8442 /* RCTFBSDKCore.xcodeproj */,
 				BB32CF0ABFC0463C87A5B42D /* RCTFBSDKLogin.xcodeproj */,
 				18A934773D5943C8BE805BC7 /* RCTFBSDKShare.xcodeproj */,
+				25B8CD1A03F04824A21A21BB /* RNFetchBlob.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -613,10 +618,6 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
 			name = Debug;
@@ -633,10 +634,6 @@
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/funshare.app/funshare";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
-					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 					"\"$(SRCROOT)/$(TARGET_NAME)\"",
 				);
 			};
@@ -656,6 +653,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fbsdkcore/iOS",
 					"$(SRCROOT)/../node_modules/react-native-fbsdklogin/iOS",
 					"$(SRCROOT)/../node_modules/react-native-fbsdkshare/iOS",
+					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 				);
 				INFOPLIST_FILE = "funshare/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -681,6 +679,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fbsdkcore/iOS",
 					"$(SRCROOT)/../node_modules/react-native-fbsdklogin/iOS",
 					"$(SRCROOT)/../node_modules/react-native-fbsdkshare/iOS",
+					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 				);
 				INFOPLIST_FILE = "funshare/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -736,6 +735,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fbsdkcore/iOS",
 					"$(SRCROOT)/../node_modules/react-native-fbsdklogin/iOS",
 					"$(SRCROOT)/../node_modules/react-native-fbsdkshare/iOS",
+					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -781,6 +781,7 @@
 					"$(SRCROOT)/../node_modules/react-native-fbsdkcore/iOS",
 					"$(SRCROOT)/../node_modules/react-native-fbsdklogin/iOS",
 					"$(SRCROOT)/../node_modules/react-native-fbsdkshare/iOS",
+					"$(SRCROOT)/../node_modules/react-native-fetch-blob/ios/**",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				MTL_ENABLE_DEBUG_INFO = NO;

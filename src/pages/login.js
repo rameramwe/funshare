@@ -205,10 +205,12 @@ loginfb(){
 
 }
 onLoadUserCompleted(user) {
-  
-  this.props.replaceRoute(Routes.home());
-  
-}
+    if (user.onboarded) {
+      this.props.replaceRoute(Routes.Home1());
+    } else {
+      this.props.replaceRoute(Routes.Home1());
+    }
+  }
 
 }
 

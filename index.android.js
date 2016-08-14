@@ -15,6 +15,8 @@ import Header from './src/components/header';
 import * as firebase from 'firebase';
 import RootNavigator from 'funshare/RootNavigator';
 import styles from './src/styles/common-styles.js';
+import RNFetchBlob from 'react-native-fetch-blob';
+
 
 // Initialize Firebase
 const firebaseConfig = {

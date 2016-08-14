@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import  {
   StyleSheet
 } from 'react-native';
+import StyleVars from 'funshare/StyleVars';
 
 module.exports = StyleSheet.create({
   container: {
@@ -13,10 +14,29 @@ module.exports = StyleSheet.create({
     bottom: 0,
     top: 0
   },
+
+   profilePictureContainer: {
+    flex: 1,
+    paddingTop:13,
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  username:{
+    fontSize: 20,
+    fontWeight: 'bold' ,
+    alignItems: 'center',
+    color: 'black'
+  },
   backgroundImage:{
     flex:1 ,
     width: null,
     height: null 
+  },
+  profilepicture:{
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    marginBottom: 20,
   },
 
   LogoComponent:{
@@ -36,6 +56,10 @@ module.exports = StyleSheet.create({
     height: 100,
     marginTop:10
   },
+  buttongroup:{
+    flex:1,
+    paddingTop:50,
+  },
   body: {
     flex: 9,
     alignItems: 'center',
@@ -53,8 +77,7 @@ module.exports = StyleSheet.create({
     borderBottomWidth: 1,
     flex: 1,
     borderWidth: 5,
-    textAlign: 'center'
-    
+    textAlign: 'center' 
   },
 
   transparent_button: {

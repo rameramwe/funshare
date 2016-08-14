@@ -14,10 +14,11 @@ import Header from '../components/header';
 import Login from './login';
 import firebase from 'firebase';
 import Routes from 'funshare/Routes';
-//import DataStore from 'funshare/DataStore';
+import DataStore from 'funshare/DataStore';
 import Actions from 'funshare/Actions';
 import SharedStyles from 'funshare/SharedStyles';
 import StyleVars from 'funshare/StyleVars';
+import Tinder from 'funshare/Tinder';
 
 
 const styles = StyleSheet.create({
@@ -41,6 +42,7 @@ export default class Home extends Component {
   }
 
   componentWillMount() {
+    Actions.logout();
     Actions.auth();
   }
 
@@ -56,6 +58,14 @@ export default class Home extends Component {
     return (
       <View >
         <Text> hi </Text>
+        <Button
+      text="Login"
+      onpress={this.logout.bind(this)}
+      button_styles={styles.primary_button}
+      button_text_styles={styles.primary_button_text} />
+
+      <Tinder style={{flex: 1}} />
+
      
       </View>
     );
@@ -65,16 +75,23 @@ export default class Home extends Component {
   _onLoadUserCompleted(user) {
     let currentUser = DataStore.getCurrentUser();
 
+
     if (currentUser.onboarded) {
       this.setState({ loaded: true });
     } else {
-      this.props.replaceRoute(Routes.onboarding(currentUser));
+      this.props.replaceRoute(Routes.Home1(currentUser));
     }
   }
 
   _onLogout() {
     this.props.replaceRoute(Routes.login());
   }
+  logout(){
+
+    Actions.logout();
+
+  }
+
 
   }
 

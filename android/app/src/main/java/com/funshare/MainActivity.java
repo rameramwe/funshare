@@ -1,6 +1,9 @@
 package com.funshare;
 
 import com.facebook.react.ReactActivity;
+import com.RNFetchBlob.RNFetchBlobPackage;
+
+
 import com.imagepicker.ImagePickerPackage;
 import android.content.Intent;
 public class MainActivity extends ReactActivity {

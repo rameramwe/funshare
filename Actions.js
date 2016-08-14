@@ -7,9 +7,12 @@ let actions = Reflux.createActions([
   "unauth",
   { login: { asyncResult: true } },
   "logout",
+  "gotomystuff",
   { signup: { asyncResult: true } },
   { loadUser: { asyncResult: true } },
-  
+  { onboard: { asyncResult: true, children: ["started"] } },
+  { uploadPost: { asyncResult: true } },
+  { loadPosts: { asyncResult: true } },
   
 ]);
 

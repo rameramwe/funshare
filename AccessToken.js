@@ -23,6 +23,7 @@ class AccessToken {
 
   set(token) {
     this._accessToken = token;
+    
     return AsyncStorage.setItem("ACCESS_TOKEN", token);
   }
 
