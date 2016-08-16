@@ -74,7 +74,8 @@ export default Reflux.createStore({
    
            firebase.auth().onAuthStateChanged(function(user) {
         if (user) {
-          alert("datastore");
+       //   alert("datastore");
+         // alert(payload);
           ApiRequest.updateUser(user.uid, payload)
       .then((user) => Actions.onboard.completed(user))
       .catch((err) => Actions.onboard.failed(err))

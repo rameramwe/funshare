@@ -11,89 +11,103 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  TouchableWithoutFeedback,
   Text,
   AppRegistry,
+  allert
 } from 'react-native';
 
 import StyleVars from 'funshare/StyleVars';
 import Button from 'funshare/src/components/button';
 import imgbutton from 'funshare/src/components/imgbutton';
-
+ import fetchblob from 'funshare/src/components/fetchblob';
 var ImagePicker = require('react-native-image-picker');
 
+var image = [];
+
+const sport = (
+  <View>
+       
+      <Image
+      resizeMode={Image.resizeMode.contain}
+      source={require('../img/edit.png')}
+      style = {{width:20, height:20, marginRight:30}}
+      />
+       <Text>Hiiii</Text>     
+      
+      </View>
+);
+
+const port = (   <TouchableOpacity style={{flex:1 , flexDirection:'row' , alignItems:'center' , left:50}}>     
+      <Image
+      resizeMode={Image.resizeMode.contain}
+      source={require('../img/edit.png')}
+      style = {{width:20, height:20, marginRight:30}}
+      />
+       <Text>Hiiii</Text>     
+      </TouchableOpacity>);
+
+        const options = [
+
+    "sport",
+    "port",
+    "baby and child"
+  ];
+      const nice = [
+
+    "sport",
+    "port",
+    "baby and child"
+  ];
+
+ 
 
 export default class addstuff extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-       avatarSource: null
+       dummypic: null,
+       title:null,
+       description:null,
+       falseSwitchIsOn:false,
+
     }
   }
 
-goToSignup(){
-  var Platform = require('react-native').Platform;
-  var ImagePicker = require('react-native-image-picker');
+calluploadphoto() {
 
-// More info on all the options is below in the README...just some common use cases shown here
-var options = {
-  title: 'Add a thing to exchange  ',
-  customButtons: {
-    'Choose Photo from Facebook': 'fb',
-  },
-  storageOptions: {
-    skipBackup: true,
-    path: 'images'
-  }
-};
+ fetchblob.uploadphoto().then((source) => {
+  alert(source);
+  this.setState({
 
-/**
- * The first arg is the options object for customization (it can also be null or omitted for default options),
- * The second arg is the callback which sends object: response (more info below in README)
- */
- ImagePicker.showImagePicker(options, (response) => {
-  console.log('Response = ', response);
 
-  if (response.didCancel) {
-    console.log('User cancelled image picker');
-  }
-  else if (response.error) {
-    console.log('ImagePicker Error: ', response.error);
-  }
-  else if (response.customButton) {
-    console.log('User tapped custom button: ', response.customButton);
-  }
-  else {
-    // You can display the image using either data...
-    const source = {uri: 'data:image/jpeg;base64,' + response.data, isStatic: true};
-
-    // or a reference to the platform specific asset location
-    if (Platform.OS === 'ios') {
-      const source = {uri: response.uri.replace('file://', ''), isStatic: true};
-    } else {
-      const source = {uri: response.uri, isStatic: true};
-    }
-
-    this.setState({
-      avatarSource: source
-
+      dummypic:source
+      
     });
-     allert:(source)
-  }
-});
+ }
+)
+  
+
+
+}
+calluploadphoto1(){
+
 }
   render()
   {
+
+    
     return ( 
 
       <View style= {styles.container}>
 
       <TouchableOpacity style = {styles.imageContainer}
-      onPress={() => this.goToSignup()}>
+      onPress={() =>this.calluploadphoto() }>
       
       <Image
       resizeMode={Image.resizeMode.contain}
-       source={this.state.avatarSource}
+       source={this.state.dummypic}
       style = {styles.image}
       />
       
@@ -109,6 +123,7 @@ var options = {
       autoCapitalize="none"
       autoCorrect={false}
       returnKeyType="next"
+      onChangeText={(title) => this.setState({title})}
       onSubmitEditing={() => this.description.focus()}
       />
       </View>
@@ -125,6 +140,7 @@ var options = {
       autoCorrect={false}
       multiline={true}
       numberOfLines = {4}
+      onChangeText={(description) => this.setState({description})}
       />
       </View>
 
@@ -136,34 +152,41 @@ var options = {
 
       <View style = {{flex:2}}>
       <View style={{flex:1 , flexDirection:'row'}}>
-
-
-      <TouchableOpacity style={{flex:1 ,left:30, flexDirection:'row' , alignItems:'center' }}>     
+      <View style={{flexDirection:'column'}}>
       <Image
       resizeMode={Image.resizeMode.contain}
       source={require('../img/edit.png')}
       style = {{width:20, height:20, marginRight:30}}
       />
-       <Text>Hiiii</Text>     
-      </TouchableOpacity>
-
-       <TouchableOpacity style={{flex:1 , flexDirection:'row' , alignItems:'center' , left:50}}>     
+        <Image
+      resizeMode={Image.resizeMode.contain}
+      source={require('../img/edit.png')}
+      style = {{width:20, height:20, marginRight:30}}
+      />
       <Image
       resizeMode={Image.resizeMode.contain}
       source={require('../img/edit.png')}
       style = {{width:20, height:20, marginRight:30}}
       />
-       <Text>Hiiii</Text>     
-      </TouchableOpacity>
+      </View>
+
+      </View>
 
       
-      </View>
+
+
+  <View style ={{flex:1,flexDirection:"row",backgroundColor:"#EDEDEF"}}>
+  <Switch onValueChange={(value) => this.setState({falseSwitchIsOn: value})} style={{margin:10}} value={this.state.falseSwitchIsOn} />
+  <Text style={{margin:20}}>Auf Facebook teilen</Text>
+  </View>
 
       <TouchableOpacity
         style={styles.button}
+        onPress={this.finish.bind(this)}
       >
         <Text style={styles.buttontext}>hiiiiii</Text>
       </TouchableOpacity>
+
      
 
       </View>
@@ -176,14 +199,18 @@ var options = {
 
       );
     }
+    beginadd(){
+       Actions.uploadPost();
+    }
+    finish(){
+
+      allert(title)
+    }
 
 
   }
 
    
-  
-
-
 
   var styles = StyleSheet.create({
 

@@ -19,8 +19,10 @@
     "react-native-gifted-spinner": "0.0.5",
     "react-native-icon-badge": "^1.1.1",
     "react-native-image-picker": "^0.21.1",
-    "react-native-swipe-cards": "0.0.7",
+    "react-native-swipe-cards": "0.0.8",
     "react-native-swiper": "^1.4.8",
+    "react-native-testkit": "^0.1.2",
+    "react-timer-mixin": "^0.13.3",
     "reflux": "^0.4.1"
   }
 }

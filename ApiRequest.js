@@ -74,8 +74,8 @@ class ApiRequest {
   updateUser(uid, payload) {
      
     return new Promise((next, error) => {
-      alert("fuckme");
-      var userRef = firebase.database().ref().child('profiles').child(uid);
+      
+     // var userRef = firebase.database().ref().child('profiles').child(uid);
       
     //  var file = payload;
      // var uploadTask = firebase.database().ref().child('images').put(file);
@@ -89,21 +89,21 @@ class ApiRequest {
   // For instance, get the download URL: https://firebasestorage.googleapis.com/...
   var downloadURL = uploadTask.snapshot.downloadURL;
 });*/
-firebase.database().ref().child('profiles').child(uid).child('photoURL').getDownloadURL().then(function(url) {
+/*firebase.database().ref().child('profiles').child(uid).child('photoURL').getDownloadURL().then(function(url) {
   alert(url);
   // Get the download URL for 'images/stars.jpg'
   // This can be inserted into an <img> tag
   // This can also be downloaded directly
 }).catch(function(error) {
   alert(error);
-});
+});*/
 
      var user = firebase.auth().currentUser;
 
 user.updateProfile({
   photoURL: payload
 }).then(function() {
- alert ("fuck");
+ //alert ("fuck");
  next(payload);
 }, function(error) {
   alert ("fuck1");
