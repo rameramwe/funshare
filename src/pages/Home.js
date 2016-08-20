@@ -57,7 +57,6 @@ export default class Home extends Component {
 
     return (
       <View >
-        <Text> hi </Text>
         <Button
       text="Login"
       onpress={this.logout.bind(this)}
