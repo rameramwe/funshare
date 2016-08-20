@@ -71,20 +71,21 @@ export default class addstuff extends Component {
        title:null,
        description:null,
        falseSwitchIsOn:false,
+       category:"sport",
+       picPath1:null
 
     }
   }
 
 calluploadphoto() {
 
- fetchblob.uploadphoto().then((source) => {
-  alert(source);
+ fetchblob.uploadphoto().then((picSetup) => {
+  alert(picSetup.picPath);
   this.setState({
-
-
-      dummypic:source
-      
+      dummypic:picSetup.source,  
+      picPath1:picSetup.picPath    
     });
+
  }
 )
   
@@ -203,8 +204,9 @@ calluploadphoto1(){
        Actions.uploadPost();
     }
     finish(){
-
-      allert(title)
+      fetchblob.upload1(this.state.picPath1,this.state.title,this.state.description,
+        this.state.category);
+     
     }
 
 

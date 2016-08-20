@@ -2,6 +2,7 @@
 import RNTest from 'react-native-testkit'
 import RNFetchBlob from 'react-native-fetch-blob'
 import React from 'react'; 
+import DataStore from 'funshare/DataStore';
 import{
 	StyleSheet,
 	PropTypes,
@@ -21,11 +22,16 @@ window.Blob = polyfill.Blob
 const { Assert, Comparer, Info, prop } = RNTest
 const dirs = RNFetchBlob.fs.dirs
 const prefix = ((Platform.OS === 'android') ? 'file://' : '')
-const testImageName = `image-from-react-native-${Platform.OS}-${new Date()}.png`
+const testImageName = `item${Platform.OS}-${new Date()}.png`
 const testFile = null
-function upload1(path){  
+
+function upload1(path,title1,description1,category1){  
 	testFile=path;
+	var url1=null;
+	var currentUser = DataStore.getCurrentUser();
+	var uid=currentUser.uid ;
 	let rnfbURI = RNFetchBlob.wrap(testFile)
+	alert(rnfbURI);
   // create Blob from file path
   //alert(rnfbURI);
   Blob
@@ -33,12 +39,32 @@ function upload1(path){
   .then((blob) => {
       // upload image using Firebase SDK
       var uploadTask = firebase.storage()
-      .ref('profiles')
-      .child('uid1')
-      .child(testImageName);
+      .ref('usersItemss')
+      .child(uid)
+      .child(Math.random().toString(36).substr(2, 9));
       uploadTask.put(blob, { contentType : 'image/png' })
       .then((snapshot) => {
       	uploadTask.getDownloadURL().then(function(url) {
+      		
+      		alert(url);
+      		var uploadTask1 = firebase.database()
+      .ref('items')
+      .child(uid);
+
+    
+    var itemData = {
+    uid: uid,
+    description: description1,
+    title: title1,
+    starCount: 0,
+    itemPic: url,
+    category:category1
+  };
+  var newItemKey = uploadTask1.push(itemData).key
+var updates = {};
+updates['items/' + uid + '/' + newItemKey] = itemData;
+var uploadTask2 = firebase.database()
+      .ref('categories').child(category1).child(newItemKey).set(itemData);
 
             //alert(scc);
            // Actions.onboard.started(url);
@@ -51,9 +77,18 @@ function upload1(path){
 }).catch(function(error) {
   // Handle any errors
 });
+
 })
   })
  //   alert(this.state.picdata);
+
+
+  
+
+
+
+
+ 
 
 }
 function uploadphoto() {
@@ -100,9 +135,21 @@ var options = {
     } else {
     	const source = {uri: response.uri, isStatic: true};
     }
-    next(source);
+   
 
-    this.upload1(response.path);
+   var picSetup = {
+
+    picPath:  response.path,
+
+    source: {uri: response.uri, isStatic: true},
+
+    
+
+};
+
+    next(picSetup);
+
+   // this.upload1(response.path);
    // alert(response.uri);
    
     //this.upload1();

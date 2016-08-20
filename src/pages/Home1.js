@@ -33,7 +33,7 @@ const polyfill = RNFetchBlob.polyfill
 window.XMLHttpRequest = polyfill.XMLHttpRequest
 window.Blob = polyfill.Blob
 
-const { Assert, Comparer, Info, prop } = RNTest
+
 const dirs = RNFetchBlob.fs.dirs
 const prefix = ((Platform.OS === 'android') ? 'file://' : '')
 const testImageName = `image-from-react-native-${Platform.OS}-${new Date()}.png`
@@ -301,7 +301,7 @@ addstuff() {
 
 goTomysuff() {
 
-  this.props.replaceRoute(Routes.mystuff());
+  this.props.replaceRoute(Routes.Home());
 
 }
 upload() {         

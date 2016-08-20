@@ -42,7 +42,7 @@ export default class Home extends Component {
   }
 
   componentWillMount() {
-    Actions.logout();
+    
     Actions.auth();
   }
 
@@ -61,6 +61,11 @@ export default class Home extends Component {
         <Button
       text="Login"
       onpress={this.logout.bind(this)}
+      button_styles={styles.primary_button}
+      button_text_styles={styles.primary_button_text} />
+      <Button
+      text="Login"
+      onpress={this.mystuff.bind(this)}
       button_styles={styles.primary_button}
       button_text_styles={styles.primary_button_text} />
 
@@ -91,6 +96,12 @@ export default class Home extends Component {
     Actions.logout();
 
   }
+  mystuff(){
+
+     this.props.replaceRoute(Routes.mystuff());
+
+  }
+
 
 
   }
