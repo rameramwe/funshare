@@ -66,7 +66,7 @@ export default React.createClass({
        .once('value')
        .then(function(snapshot) {
          num =snapshot.numChildren();
-         alert(num);
+        // alert(num);
          snapshot.forEach(function(childSnapshot) {
            
           firebase.database()

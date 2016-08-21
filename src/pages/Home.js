@@ -9,7 +9,7 @@ import {
   AsyncStorage
 } from 'react-native';
 
-import Button from '../components/button';
+import Button from 'funshare/src/components/button';
 import Header from '../components/header';
 import Login from './login';
 import firebase from 'firebase';
@@ -58,16 +58,22 @@ export default class Home extends Component {
     return (
       <View >
         <Button
-      text="Login"
+      text="logout"
       onpress={this.logout.bind(this)}
       button_styles={styles.primary_button}
       button_text_styles={styles.primary_button_text} />
       <Button
-      text="Login"
+      text="mystuff"
       onpress={this.mystuff.bind(this)}
       button_styles={styles.primary_button}
       button_text_styles={styles.primary_button_text} />
 
+      
+      <Button
+      text="fuck"
+      onpress={this.fuck.bind(this)}
+      button_styles={styles.primary_button}
+      button_text_styles={styles.primary_button_text} />
       <Tinder style={{flex: 1}} />
 
      
@@ -97,7 +103,12 @@ export default class Home extends Component {
   }
   mystuff(){
 
-     this.props.replaceRoute(Routes.mystuff());
+     this.props.replaceRoute(Routes.addstuff());
+
+  }
+  fuck(){
+
+     this.props.replaceRoute(Routes.fuck());
 
   }
 

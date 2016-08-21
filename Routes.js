@@ -100,12 +100,13 @@ Home1(user) {
       statusBarStyle: "light-content"
     }
   }
-  fuck() {
+  fuck(desc,piclink,title ) {
     return {
       name: "signup",
       title: "signup",
       component: fuck,
       hideNavigationBar: true,
+      passProps: { desc:desc , piclink :piclink,title:title },
       statusBarStyle: "light-content"
     }
   }

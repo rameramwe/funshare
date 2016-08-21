@@ -8,6 +8,7 @@ import {
   Text,
   View,
   StyleSheet,
+  Image,
   TextInput
 } from'react-native';
 import Swiper from 'react-native-swiper';
@@ -63,6 +64,20 @@ const styles = StyleSheet.create({
 
 export default class fuck extends Component {
 
+  constructor(props) {
+    super(props);
+    
+    this.state = {
+      
+      title:this.props.title,
+      desc:this.props.desc,
+      piclink:this.props.piclink
+     //profilePicture:"http://domaingang.com/wp-content/uploads/2012/02/example.png"
+
+   }
+ 
+   }
+
   render() {
      
   
@@ -75,7 +90,10 @@ export default class fuck extends Component {
       onMomentumScrollEnd={this._onMomentumScrollEnd}
          >
         <View style={styles.slide1}>
-          <Text style={styles.text}>Hello Swiper</Text>
+          <Image
+              style={{width:200, height:200}}
+              source={{uri: this.state.piclink}}
+              /> 
         </View>
         <View style={styles.slide2}>
           <Text style={styles.text}>Beautiful</Text>
@@ -89,7 +107,8 @@ export default class fuck extends Component {
    <View style= {{flex:.5}}>
       <View style ={{flex:1 , marginTop:0 ,borderBottomWidth:1, borderColor:'#a9a9a9'}}>
       <TextInput
-      placeholder="Was tauchst du.."
+      value={this.state.title}
+      editable={false}
       placeholderTextColor= '#a9a9a9'
       selectionColor='#6495ed'
       style={styles.textinput}
@@ -104,7 +123,8 @@ export default class fuck extends Component {
       <View style ={{flex:3 , marginTop:0 ,borderBottomWidth:1, borderColor:'#a9a9a9'}}>
       <TextInput
       ref={(ref) => this.description = ref}
-      placeholder="Beshreibe es.."
+      value={this.state.desc}
+       editable={false}
       placeholderTextColor= '#a9a9a9'
       selectionColor='#6495ed'
       style={styles.description}

@@ -7,7 +7,7 @@
     Text,
     View,
     Image,
-    TouchableOpacity,
+    TouchableHighlight,
     Dimensions,
     ScrollView
   } from 'react-native';
@@ -22,8 +22,11 @@
   export default class mystuff extends Component {
 
     rami() {
+
      
       return new Promise((next, error) => {
+        //alert(this.fuck());
+        var self = this; 
        var i = 0;
        var num=0;
        var uid = firebase.auth().currentUser.uid;
@@ -33,25 +36,29 @@
        .once('value')
        .then(function(snapshot) {
          num =snapshot.numChildren();
-         alert(num);
+        // alert(num);
          snapshot.forEach(function(childSnapshot) {
-           
+            
           firebase.database()
           .ref('items')
           .child(uid).child(childSnapshot.key).once('value').then(function(snapshot) {
             var piclink = snapshot.val().itemPic;
+            var desc = snapshot.val().description;
+            var title = snapshot.val().title;
+            
             piclinks.push(piclink);
             image.push(
-              <TouchableOpacity
+              <TouchableHighlight
               activeOpacity={ 0.75 }
               style={ styles.item }
+              onPress={self.fuck.bind(this,desc,piclink,title)}
               >
               <Image
               style={ styles.image }
               source={{uri: piclink}}
               /> 
               
-              </TouchableOpacity>);
+              </TouchableHighlight>);
             
             i++;
             if (i==num){
@@ -73,11 +80,16 @@
      //alert(piclinks[0]);
    }); 
     }
-    componentDidMount() {
-    }
+    fuck(desc,piclink,title){
+  
+
+     this.props.replaceRoute(Routes.fuck(desc,piclink,title));
+     // alert(desc + title + piclink);
+
+  }
     _renderImage(){
 
-
+      
      this.rami().then((rm) => {
     //alert(piclinks[1]);
     //should find a better way to do this 
@@ -96,6 +108,8 @@
 
   constructor(props) {
     super(props);
+    this.rami = this.rami.bind(this);
+    this.fuck = this.fuck.bind(this);
     this.state = {
      image: ["null"],
      hi: "hi",

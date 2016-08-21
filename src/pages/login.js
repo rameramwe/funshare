@@ -7,7 +7,8 @@ import {
   TextInput,
   View,
   Image,
-  AsyncStorage
+  AsyncStorage,
+  TouchableHighlight
 } from 'react-native';
 
 import Button from '../components/button';
@@ -70,41 +71,45 @@ export default class login extends Component {
 
       
       </View>
-      <View>
+      <View style={{marginTop:30}}>
 
-      <TextInput
-      style={styles.textinput}
-      onChangeText={(text) => this.setState({password: text})}
-      value={this.state.password}
-      secureTextEntry={true}
-      placeholder={"user name"}
-      />
+     
 
       <TextInput
       style={styles.textinput}
       onChangeText={(text) => this.setState({email: text})}
-      value={this.state.email}
-      placeholder={"Email Address"}
+      keyboardType={"email-address"}
+      placeholder={"E-mail Adresse"}
+      onSubmitEditing={() => this.email.focus()}
+      returnKeyType="next"
       />
       <TextInput
+      ref={(ref) => this.email = ref}
       style={styles.textinput}
-      onChangeText={(text) => this.setState({password: text})}
-      value={this.state.password}
+      onChangeText={(text) => this.setState({password: text})} 
       secureTextEntry={true}
-      placeholder={"Password"}
+      placeholder={"Passwort"}
+      returnKeyType="done"
+       onSubmitEditing={this.login.bind(this)}
+       
       />
 
-      
-
+    
+      <View style={{ flexDirection: 'row'}}>
       <Button
-      text="Login"
+      ref={(ref) => this.btn = ref}
+      text="ANMELDEN"
       onpress={this.login.bind(this)}
       button_styles={styles.primary_button}
       button_text_styles={styles.primary_button_text} />
-
-
+      <View style={{margin:14 ,marginLeft:40 }}>
       
-
+      <Text style={{color:"white" , fontSize:14}}>Passwort vergessen?</Text>
+      <TouchableHighlight>
+           <Text style={{textDecorationLine: 'underline', color:"white" , fontSize:14}}>Jetzt hier regestrieren</Text>     
+      </TouchableHighlight>
+      </View>
+</View>
 
       <View style={{flex: 1, alignItems: 'center', margin: 10}}>
       <View> 

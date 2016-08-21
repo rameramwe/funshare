@@ -25,6 +25,8 @@ import DataStore from 'funshare/DataStore';
 import Actions from 'funshare/Actions';
 import SharedStyles from 'funshare/SharedStyles';
 import RNFetchBlob from 'react-native-fetch-blob'
+import IconButton from 'funshare/src/components/icoButton';
+
 
 
 const fs = RNFetchBlob.fs
@@ -40,26 +42,20 @@ const testImageName = `image-from-react-native-${Platform.OS}-${new Date()}.png`
 const testFile = null
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: "row",
-    alignItems: "center",
-
-    width: null,
-    height: null 
+  flex:1,
+  alignItems:'stretch',
   },
   inputContainer: {
     flexDirection: "row",
     alignItems: "center",    
-    padding: 7,
-    borderBottomColor: '#CCB1B0',
-    borderBottomWidth: 1
+     
   },
   imageContainer:{
 
     marginTop: 20,
   },
   input: {
-    flex: 1,
+ 
     textAlign: 'center',
     fontSize: 18,
     color: '#FF4470',
@@ -67,26 +63,38 @@ const styles = StyleSheet.create({
   },
 
   username: {
-    flex: 1,
+  
     textAlign: 'center',
     fontSize: 23,
     fontWeight: 'bold',
   },
   profilePictureContainer: {
-    flex: 1,
+   
+    flexDirection: 'row',
     alignItems: "center",
     justifyContent: "center"
   },
+  btnContainer:{
+ 
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: 'row',
+
+    marginBottom: 5
+  },
+
   profilePicture: {
     width: 140,
     height: 140,
     borderRadius: 70,
     marginBottom: 15,
-
   },
+
+
+  
   buttongrop: {
-    marginTop:30,
-    flex:1
+   paddingTop:20,
+    alignItems: 'flex-start',
   },
   footer: {
     bottom: 0,
@@ -103,11 +111,15 @@ const styles = StyleSheet.create({
   footerText: {
     color: "white",
     fontSize: 14
+  },
+  IContainer:{
+    alignItems:'flex-start',
+    padding:3,
+    backgroundColor: "rgba(255,255,255,0.1)",
   }
 });
 
-class Home1
-extends React.Component {
+class Home1 extends React.Component {
   constructor(props) {
     super(props);
     var currentUser = DataStore.getCurrentUser();
@@ -116,8 +128,7 @@ extends React.Component {
       failed: false,
       profilePicture:{uri:currentUser.photoURL} ,
       picdata:{uri:currentUser.photoURL},
-      dummypic:{uri:currentUser.photoURL},
-      
+      dummypic:{uri:currentUser.photoURL},    
     };
   }
 
@@ -140,21 +151,16 @@ extends React.Component {
   render() {
     return (
 
-      <Image
-      resizeMode={Image.resizeMode.cover}
-      source={require('../img/background1.png')}
-      style = {styles.container}
-      >
-      
+      <View style = {styles.container}>    
       <ScrollView
-      keyboardShouldPersistTaps={false}
-      automaticallyAdjustContentInsets={false}
+      style={{flex:1}}
       >
 
 
       <View style={styles.imageContainer}>
+
       <View
-      style={styles.profilePictureContainer}
+       style={styles.profilePictureContainer}
       >
       <IconBadge
       MainElement={
@@ -193,43 +199,63 @@ extends React.Component {
     style={styles.username}
     >ms</Text>
     </View>
-
+    <View style= {{alignItems:'center'}}>
     <View style = {styles.buttongrop} >
 
     <View style={styles.inputContainer}>
-    <TouchableOpacity
-    style={styles.profilePictureContainer}
-    onPress={ this.goTomysuff.bind(this)}
-    ><Text style = {styles.input}>Meine Objekte</Text>
-    </TouchableOpacity>
+    <IconButton     
+    input={styles.IContainer}
+    value={"Meine Objekte"}
+    source={require('../img/box.png')}
+    onPress={this.goTomysuff.bind(this)}
+    />
+
     </View>
 
     <View style={styles.inputContainer}>
-    <TouchableOpacity
-    style={styles.profilePictureContainer}
+    <IconButton
+    input={styles.IContainer}
+    containerStyle={styles.profilePictureContainer}
+    value={"Einstellungen"}
+    source={require('../img/tools.png')}
+    onPress={this.goTomysuff.bind(this)}
+    />
 
-    onPress={ this.goTomysuff.bind(this)}
-    ><Text style={styles.input}>Einstellungen</Text>
-    </TouchableOpacity>
     </View>
+  <View style={styles.inputContainer}>
+    <IconButton
+    input={styles.IContainer}
+    containerStyle={styles.profilePictureContainer}
+    value={"Wunschliste"}
+    source={require('../img/tools.png')}
+    onPress={this.logout.bind(this)}
+    />
 
+    </View>
     <View style={styles.inputContainer}>
-    <TouchableOpacity
-    style={styles.profilePictureContainer}
-    onPress={ this.logout.bind(this)}
-    ><Text style={ styles.input} >jetzt upgraden</Text>
-    </TouchableOpacity>
-    </View>
+    <IconButton
+    input={styles.IContainer}
+    containerStyle={styles.profilePictureContainer}
+    value={"Premeume"}
+    source={require('../img/tools.png')}
+    onPress={this.logout.bind(this)}
+    />
 
     </View>
+</View>
+    </View>
+    <View style={{paddingTop:20, alignItems:'center'}}>
+    <Image
 
-    <TouchableOpacity style={styles.footer} activeOpacity={0.8} onPress={() => this.addstuff()}>
-    <Text style={styles.footerText}>Version 1.0</Text>
-    </TouchableOpacity>
+    source={require('../img/ifunshare.png')}
+    style={{height:50, width:150}}
+
+    />
+    </View>
     </ScrollView>
 
-    </Image>
-    
+    </View>
+
     );
   }
   uploadphoto() {
@@ -237,35 +263,35 @@ extends React.Component {
     var Platform = require('react-native').Platform;
     var ImagePicker = require('react-native-image-picker');
 
-// More info on all the options is below in the README...just some common use cases shown here
-var options = {
-  title: 'upload a new profile picture  ',
-  customButtons: {
-    'Choose Photo from Facebook': 'fb',
-  },
-  storageOptions: {
-    skipBackup: true,
-    path: 'images'
-  }
-};
+    // More info on all the options is below in the README...just some common use cases shown here
+    var options = {
+      title: 'upload a new profile picture  ',
+      customButtons: {
+        'Choose Photo from Facebook': 'fb',
+      },
+      storageOptions: {
+        skipBackup: true,
+        path: 'images'
+      }
+    };
 
-/**
- * The first arg is the options object for customization (it can also be null or omitted for default options),
- * The second arg is the callback which sends object: response (more info below in README)
- */
- ImagePicker.showImagePicker(options, (response) => {
-  console.log('Response = ', response);
+    /**
+    * The first arg is the options object for customization (it can also be null or omitted for default options),
+    * The second arg is the callback which sends object: response (more info below in README)
+    */
+    ImagePicker.showImagePicker(options, (response) => {
+      console.log('Response = ', response);
 
-  if (response.didCancel) {
-    console.log('User cancelled image picker');
-  }
-  else if (response.error) {
-    console.log('ImagePicker Error: ', response.error);
-  }
-  else if (response.customButton) {
-    console.log('User tapped custom button: ', response.customButton);
-  }
-  else {
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      }
+      else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      }
+      else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+      }
+      else {
     // You can display the image using either data...
     const source = {uri: 'data:image/jpeg;base64,' + response.data, isStatic: true};
     
@@ -289,23 +315,23 @@ var options = {
   
 }
 });
- 
 
-}
 
-addstuff() {
+  }
 
-  this.props.replaceRoute(Routes.addstuff());
+  addstuff() {
 
-}
+    this.props.replaceRoute(Routes.addstuff());
 
-goTomysuff() {
+  }
 
-  this.props.replaceRoute(Routes.Home());
+  goTomysuff() {
 
-}
-upload() {         
-  let rnfbURI = RNFetchBlob.wrap(this.state.profilePicture)
+    this.props.replaceRoute(Routes.mystuff());
+
+  }
+  upload() {         
+    let rnfbURI = RNFetchBlob.wrap(this.state.profilePicture)
   //alert(rnfbURI);
   // create Blob from file path
   //alert(this.state.profilePicture);
@@ -353,7 +379,7 @@ logout(){
 
 }
 onOnboardStarted(url) {
-  
+
 
  Actions.onboard(url);
 }
@@ -389,7 +415,7 @@ upload1(){
       uploadTask.put(blob, { contentType : 'image/png' })
       .then((snapshot) => {
         uploadTask.getDownloadURL().then(function(url) {
-          
+
             //alert(scc);
             Actions.onboard.started(url);
 

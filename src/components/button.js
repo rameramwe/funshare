@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     marginTop: 15,
     margin:10,
     overflow: "hidden",
-    backgroundColor: '#00FF00'
+    backgroundColor: '#00D77F'
   },
   buttonText: {
     color: "white",
