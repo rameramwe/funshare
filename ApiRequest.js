@@ -20,9 +20,12 @@ class ApiRequest {
   }
 
   login(data) {
+    //alert("hi ya manayek");
+
+  
     return new Promise((next, error) => {
 
-      firebase.auth().signInWithEmailAndPassword(
+    firebase.auth().signInWithEmailAndPassword(
        data.email,
        data.password
        ).then(function(result) {
@@ -30,7 +33,7 @@ class ApiRequest {
 
        }, function(error) {
         alert("Sign-in failed");
-      });
+      }); 
 
      });
   }

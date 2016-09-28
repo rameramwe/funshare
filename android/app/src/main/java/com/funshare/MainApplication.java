@@ -14,6 +14,8 @@ import com.facebook.react.shell.MainReactPackage;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
 import com.facebook.reactnative.androidsdk.FBSDKPackage;
+import com.evollu.react.fcm.FIRMessagingPackage;
+
 
 import java.util.Arrays;
 import java.util.List;
@@ -38,7 +40,7 @@ public class MainApplication extends Application implements ReactApplication {
           
            new RNFetchBlobPackage(),
            new MainReactPackage(),
-          
+          new FIRMessagingPackage(), 
           new ImagePickerPackage(),
           new FBSDKPackage(mCallbackManager)
 

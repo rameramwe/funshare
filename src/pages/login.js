@@ -1,4 +1,4 @@
-'use strict';
+  'use strict';
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -7,6 +7,7 @@ import {
   TextInput,
   View,
   Image,
+  ScrollView,
   AsyncStorage,
   TouchableHighlight
 } from 'react-native';
@@ -53,7 +54,9 @@ export default class login extends Component {
       source={require('../img/background.png')}
       style = {styles.backgroundImage}
       >
-
+    <ScrollView
+      style={{flex:1}}
+      >
       
       <View style={styles.LogoComponent}>
 
@@ -71,50 +74,59 @@ export default class login extends Component {
 
       
       </View>
-      <View style={{marginTop:30}}>
+      <View style={{flex:0.4,marginTop:30}}>
 
      
-
+      <View style = {styles.textinputcontainer}>
       <TextInput
       style={styles.textinput}
       onChangeText={(text) => this.setState({email: text})}
       keyboardType={"email-address"}
-      placeholder={"E-mail Adresse"}
-      onSubmitEditing={() => this.email.focus()}
+      placeholder={"E-Mail Adresse"}
+      onSubmitEditing={() => this.password.focus()}
       returnKeyType="next"
+      placeholderTextColor="white"
+      underlineColorAndroid="transparent"
       />
+      </View>
+       <View style = {styles.textinputcontainer}>
       <TextInput
-      ref={(ref) => this.email = ref}
+      ref={(ref) => this.password = ref}
       style={styles.textinput}
       onChangeText={(text) => this.setState({password: text})} 
       secureTextEntry={true}
       placeholder={"Passwort"}
       returnKeyType="done"
-       onSubmitEditing={this.login.bind(this)}
-       
+      onSubmitEditing={this.login.bind(this)}
+      placeholderTextColor="white"
+      underlineColorAndroid="transparent"
       />
-
+      </View>
     
-      <View style={{ flexDirection: 'row'}}>
+      <View style={{flex:0.2 , flexDirection: 'row'}}>
+      <View style= {{flex:0.5}}>
       <Button
       ref={(ref) => this.btn = ref}
       text="ANMELDEN"
       onpress={this.login.bind(this)}
       button_styles={styles.primary_button}
       button_text_styles={styles.primary_button_text} />
-      <View style={{margin:14 ,marginLeft:40 }}>
+      </View>
+      <View style={{alignItems:'flex-end' , flex:0.5 , margin:15}}>
       
       <Text style={{color:"white" , fontSize:14}}>Passwort vergessen?</Text>
-      <TouchableHighlight>
-           <Text style={{textDecorationLine: 'underline', color:"white" , fontSize:14}}>Jetzt hier regestrieren</Text>     
+      <TouchableHighlight
+      onPress={this.goToSignup.bind(this)}>
+           <Text style={{textDecorationLine: 'underline', color:"white" , fontSize:14}}>Jetzt hier registrieren</Text>     
       </TouchableHighlight>
       </View>
-</View>
+      </View>
 
-      <View style={{flex: 1, alignItems: 'center', margin: 10}}>
-      <View> 
+      <View style={{flex: 0.1,justifyContent:'flex-end', alignItems: 'center', marginTop: 10}}>
+      
 
       <LoginButton
+      style={{ width:300 , height:35}}
       publishPermissions={["publish_actions"]}
       onLoginFinished={
         (error, result) => {
@@ -129,9 +141,11 @@ export default class login extends Component {
         }
       }
       onLogoutFinished={() => alert("User logged out")}/>
-      </View></View>
+    
+      </View>
       </View>
       
+      </ScrollView>
       
       </Image>
       );
@@ -157,53 +171,7 @@ export default class login extends Component {
 }
 
 goToSignup(){
-  var Platform = require('react-native').Platform;
-  var ImagePicker = require('react-native-image-picker');
-
-// More info on all the options is below in the README...just some common use cases shown here
-var options = {
-  title: 'Add a thing to exchange  ',
-  customButtons: {
-    'Choose Photo from Facebook': 'fb',
-  },
-  storageOptions: {
-    skipBackup: true,
-    path: 'images'
-  }
-};
-
-/**
- * The first arg is the options object for customization (it can also be null or omitted for default options),
- * The second arg is the callback which sends object: response (more info below in README)
- */
- ImagePicker.showImagePicker(options, (response) => {
-  console.log('Response = ', response);
-
-  if (response.didCancel) {
-    console.log('User cancelled image picker');
-  }
-  else if (response.error) {
-    console.log('ImagePicker Error: ', response.error);
-  }
-  else if (response.customButton) {
-    console.log('User tapped custom button: ', response.customButton);
-  }
-  else {
-    // You can display the image using either data...
-    const source = {uri: 'data:image/jpeg;base64,' + response.data, isStatic: true};
-
-    // or a reference to the platform specific asset location
-    if (Platform.OS === 'ios') {
-      const source = {uri: response.uri.replace('file://', ''), isStatic: true};
-    } else {
-      const source = {uri: response.uri, isStatic: true};
-    }
-
-    this.setState({
-      avatarSource: source
-    });
-  }
-});
+  this.props.replaceRoute(Routes.signup());
 }
 loginfb(){
 

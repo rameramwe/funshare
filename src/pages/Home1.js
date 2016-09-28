@@ -15,7 +15,7 @@ import{
   Platform,
   Text
 } from 'react-native';
-
+import IcoButton from 'funshare/src/components/icobutton';
 import IconBadge from 'react-native-icon-badge';
 import StyleVars from 'funshare/StyleVars';
 import Login from './login';
@@ -25,37 +25,33 @@ import DataStore from 'funshare/DataStore';
 import Actions from 'funshare/Actions';
 import SharedStyles from 'funshare/SharedStyles';
 import RNFetchBlob from 'react-native-fetch-blob'
-import IconButton from 'funshare/src/components/icoButton';
-
-
-
+import IconButton from 'funshare/src/components/icotextButton';
 const fs = RNFetchBlob.fs
 const Blob = RNFetchBlob.polyfill.Blob
 const polyfill = RNFetchBlob.polyfill
 window.XMLHttpRequest = polyfill.XMLHttpRequest
 window.Blob = polyfill.Blob
-
-
+var deviceWidth = Dimensions.get('window').width -6;
+var deviceheight = Dimensions.get('window').height  ;
 const dirs = RNFetchBlob.fs.dirs
 const prefix = ((Platform.OS === 'android') ? 'file://' : '')
 const testImageName = `image-from-react-native-${Platform.OS}-${new Date()}.png`
 const testFile = null
 const styles = StyleSheet.create({
   container: {
-  flex:1,
-  alignItems:'stretch',
+    flex:1,
+    alignItems:'stretch',
   },
   inputContainer: {
-    flexDirection: "row",
-    alignItems: "center",    
-     
+   
+    margin:20, 
+    marginTop:10,
+    marginBottom:0   
+    
   },
-  imageContainer:{
 
-    marginTop: 20,
-  },
   input: {
- 
+   
     textAlign: 'center',
     fontSize: 18,
     color: '#FF4470',
@@ -63,19 +59,24 @@ const styles = StyleSheet.create({
   },
 
   username: {
-  
+    
     textAlign: 'center',
     fontSize: 23,
     fontWeight: 'bold',
   },
+  imageContainer:{
+
+    marginTop: 25,
+    height:deviceheight/4,
+  },
   profilePictureContainer: {
-   
+    
     flexDirection: 'row',
     alignItems: "center",
     justifyContent: "center"
   },
   btnContainer:{
- 
+   
     alignItems: "center",
     justifyContent: "center",
     flexDirection: 'row',
@@ -87,36 +88,38 @@ const styles = StyleSheet.create({
     width: 140,
     height: 140,
     borderRadius: 70,
-    marginBottom: 15,
+    marginBottom: 5,
+
   },
 
 
   
   buttongrop: {
-   paddingTop:20,
-    alignItems: 'flex-start',
-  },
-  footer: {
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 48,
-    alignItems: "center",
-    marginTop:37,
-    paddingVertical: 15,
-    backgroundColor: "rgba(255,255,255,0.1)",
-    borderTopWidth: 1,
-    borderTopColor: "rgba(255,255,255,0.5)"
-  },
-  footerText: {
-    color: "white",
-    fontSize: 14
-  },
-  IContainer:{
-    alignItems:'flex-start',
-    padding:3,
-    backgroundColor: "rgba(255,255,255,0.1)",
-  }
+   paddingTop:45,
+   height:deviceheight/4
+   
+ },
+ footer: {
+  bottom: 0,
+  left: 0,
+  right: 0,
+  height: 48,
+  alignItems: "center",
+  marginTop:37,
+  paddingVertical: 15,
+  backgroundColor: "rgba(255,255,255,0.1)",
+  borderTopWidth: 1,
+  borderTopColor: "rgba(255,255,255,0.5)"
+},
+footerText: {
+  color: "white",
+  fontSize: 14
+},
+IContainer:{
+  alignItems:'flex-start',
+  padding:3,
+  backgroundColor: "rgba(255,255,255,0.1)",
+}
 });
 
 class Home1 extends React.Component {
@@ -128,9 +131,11 @@ class Home1 extends React.Component {
       failed: false,
       profilePicture:{uri:currentUser.photoURL} ,
       picdata:{uri:currentUser.photoURL},
-      dummypic:{uri:currentUser.photoURL},    
+      dummypic:{uri:currentUser.photoURL},
+      username:currentUser.displayName   
     };
   }
+
 
   componentWillMount() {
 
@@ -142,71 +147,109 @@ class Home1 extends React.Component {
   componentDidMount() {
     Actions.loadUser.completed.listen(this._onLoadUserCompleted.bind(this));
     Actions.logout.listen(this._onLogout.bind(this));
-    
-    
-
   }
   
-
+  goToHome()
+  {
+    this.props.replaceRoute(Routes.Home());
+  }
+  goToWish()
+  {
+    this.props.replaceRoute(Routes.wishlist());
+  }
   render() {
-    return (
+   const TopNavigation = () => (
+    <View style={{ padding: 10, flexDirection: 'row', backgroundColor: '#FF5C7E' }}>
+    <View style={{ flex:0.4 , justifyContent:'center' , margin:5  }}>
 
-      <View style = {styles.container}>    
-      <ScrollView
-      style={{flex:1}}
-      >
+    
+    
+    </View>
 
-
-      <View style={styles.imageContainer}>
-
-      <View
-       style={styles.profilePictureContainer}
-      >
-      <IconBadge
-      MainElement={
-
-        <Image
-        source={this.state.dummypic}
-        style={styles.profilePicture}
-        />
-
-      }
-      BadgeElement={
-       <TouchableOpacity
-       onPress={this.uploadphoto.bind(this)}
-       >
-       <Image source={require('../img/edit.png')}
-       resizeMode={Image.resizeMode.contain}
-       style={{width:25,height:25}}/>
-       </TouchableOpacity>
-     }
-
-     IconBadgeStyle={
-      {
-        width:30,
-        height:30,
-
-        backgroundColor: 'white'
-      }
-    }
+    <View style={{ flex:0.2 , alignItems:'center', justifyContent:'center'   }}>
+    <IcoButton
+    
+    source={require('funshare/src/img/f.png')}
+    icostyle={{width:45, height:45}}
     />
     </View>
 
+    <View style={{ flex:0.4 , alignItems:'flex-end', justifyContent:'center' , margin:5  }}>
+    <IcoButton
+    
+    source={require('funshare/src/img/swop.png')}
+    onPress={this.goToHome.bind(this)}
+    icostyle={{width:35, height:35}}
+    />
 
     </View>
-    <View>
-    <Text
-    style={styles.username}
-    >ms</Text>
-    </View>
-    <View style= {{alignItems:'center'}}>
-    <View style = {styles.buttongrop} >
 
-    <View style={styles.inputContainer}>
-    <IconButton     
-    input={styles.IContainer}
-    value={"Meine Objekte"}
-    source={require('../img/box.png')}
+    </View>
+    );
+   return (
+
+    <View style = {styles.container}>  
+    <TopNavigation/>  
+    <ScrollView
+    style={{flex:1}}
+    >
+
+
+    <View style={styles.imageContainer}>
+
+    <View
+    style={styles.profilePictureContainer}
+    >
+    <IconBadge
+    MainElement={
+
+      <Image
+      source={this.state.dummypic}
+      style={styles.profilePicture}
+      />
+
+    }
+    BadgeElement={
+     <TouchableOpacity
+     onPress={this.uploadphoto.bind(this)}
+     >
+     <Image source={require('../img/edit.png')}
+     resizeMode={Image.resizeMode.contain}
+     style={{width:25,height:25}}/>
+     </TouchableOpacity>
+   }
+
+   IconBadgeStyle={
+    {
+      width:25,
+      height:25,
+
+      backgroundColor: '#FF5C7E'
+    }
+  }
+  />
+  </View>
+  <View>
+  <Text
+  style={styles.username}
+  >{this.state.username}</Text>
+  </View>
+  </View>
+
+
+  
+  <View style= {{alignItems:'center'}}>
+  <View style = {styles.buttongrop} >
+
+  <View style={styles.inputContainer}>
+  <IconButton     
+  container={{  flex: 1 ,marginBottom:5,flexDirection: "row" }}
+  inputButtonText={{fontSize:25}}
+  value={"Meine Objekte"}
+  source={require('../img/box.png')}
+  icostyle={{ width:30,
+    height: 30,
+    marginLeft:3}}
     onPress={this.goTomysuff.bind(this)}
     />
 
@@ -214,41 +257,41 @@ class Home1 extends React.Component {
 
     <View style={styles.inputContainer}>
     <IconButton
-    input={styles.IContainer}
-    containerStyle={styles.profilePictureContainer}
+    container={{  flex: 1 ,marginBottom:5,flexDirection: "row" }}
+    inputButtonText={{fontSize:25}}
     value={"Einstellungen"}
     source={require('../img/tools.png')}
-    onPress={this.goTomysuff.bind(this)}
-    />
-
-    </View>
-  <View style={styles.inputContainer}>
-    <IconButton
-    input={styles.IContainer}
-    containerStyle={styles.profilePictureContainer}
-    value={"Wunschliste"}
-    source={require('../img/tools.png')}
-    onPress={this.logout.bind(this)}
+    onPress={this.goToSetting.bind(this)}
     />
 
     </View>
     <View style={styles.inputContainer}>
     <IconButton
-    input={styles.IContainer}
-    containerStyle={styles.profilePictureContainer}
-    value={"Premeume"}
-    source={require('../img/tools.png')}
+    container={{  flex: 1 ,marginBottom:5, flexDirection: "row" }}
+    inputButtonText={{fontSize:25}}
+    value={"Wunschliste"}
+    source={require('../img/wunsch.png')}
+    onPress={this.goToWish.bind(this)}
+    />
+
+    </View>
+    <View style={styles.inputContainer}>
+    <IconButton
+    container={{  flex: 1 ,marginBottom:7,flexDirection: "row" }}
+    inputButtonText={{color:'#FF5C7E',fontSize:25}}
+    value={"Premiume"}
+    source={require('../img/star.png')}
     onPress={this.logout.bind(this)}
     />
 
     </View>
-</View>
     </View>
-    <View style={{paddingTop:20, alignItems:'center'}}>
+    </View>
+    <View style={{height:deviceheight/4,flex:1 , justifyContent:'flex-end',  alignItems:'center'}}>
     <Image
 
     source={require('../img/ifunshare.png')}
-    style={{height:50, width:150}}
+    style={{height:50, width:170}}
 
     />
     </View>
@@ -257,11 +300,11 @@ class Home1 extends React.Component {
     </View>
 
     );
-  }
-  uploadphoto() {
+ }
+ uploadphoto() {
 
-    var Platform = require('react-native').Platform;
-    var ImagePicker = require('react-native-image-picker');
+  var Platform = require('react-native').Platform;
+  var ImagePicker = require('react-native-image-picker');
 
     // More info on all the options is below in the README...just some common use cases shown here
     var options = {
@@ -328,6 +371,12 @@ class Home1 extends React.Component {
   goTomysuff() {
 
     this.props.replaceRoute(Routes.mystuff());
+
+  }
+
+  goToSetting() {
+
+    this.props.replaceRoute(Routes.setting());
 
   }
   upload() {         

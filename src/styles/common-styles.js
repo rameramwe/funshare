@@ -45,6 +45,7 @@ module.exports = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
+    flex:0.3
   },
   Logo:{
     width: 150,
@@ -54,7 +55,7 @@ module.exports = StyleSheet.create({
     fLogo: {
     width: 200,
     height: 100,
-    marginTop:10
+    marginTop:1
   },
   buttongroup:{
     flex:1,
@@ -66,20 +67,23 @@ module.exports = StyleSheet.create({
     backgroundColor: '#F5FCFF'
   },
   textinput: {
-    backgroundColor: 'white',
-    padding:7,
-    margin:10,
-    borderColor: '#F5FCFF',
-    color: 'black',
-    height: 40,
-    fontSize: 15,
-    borderBottomColor: "rgba(255,255,255,0.75)",
-    borderBottomWidth: 1,
+ color: 'white',
+  
+  fontSize: 15,
     flex: 1,
-    borderWidth: 5,
-    textAlign: 'center' 
+textAlign: 'left'
   },
-
+  textinputcontainer: {  
+    padding:0,
+    marginLeft:10,
+    marginRight:10,
+    marginTop:5,
+    marginBottom:5,
+    borderColor: '#F5FCFF',
+    borderRadius: 5,  
+    borderBottomColor: "rgba(255,255,255,0.75)",  
+    borderWidth: 0.5,    
+  },
   transparent_button: {
     marginTop: 10,
     padding: 15

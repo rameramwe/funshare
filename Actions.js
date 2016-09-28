@@ -17,6 +17,7 @@ let actions = Reflux.createActions([
 ]);
 
 actions.auth.listen(function () {
+  
   AccessToken.get()
     .then((token) => actions.login(token))
     .catch((err) => actions.logout());

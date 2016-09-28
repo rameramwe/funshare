@@ -1,5 +1,6 @@
 'use strict';
-
+import setting from 'funshare/src/pages/setting';
+import search from 'funshare/src/pages/search';
 import Home from 'funshare/src/pages/Home';
 import Home1 from 'funshare/src/pages/Home1';
 import login from 'funshare/src/pages/login';
@@ -10,14 +11,13 @@ import Onboarding from 'funshare/Screens/Onboarding';
 import LogoutButton from 'funshare/Views/LogoutButton';
 import OnboardingButton from 'funshare/Views/OnboardingButton';
 import PostButton from 'funshare/Views/PostButton';
-import Ico from 'funshare/src/components/Ico';
 import ProfileIcon from 'funshare/src/components/ProfileIcon';
 import fuck from 'funshare/src/pages/fuck';
 import addstuff from 'funshare/src/pages/addstuff';
 import mystuff from 'funshare/src/pages/mystuff';
 import plus from 'funshare/src/components/plus';
 import fertig from 'funshare/src/components/fertig';
-
+import wishlist from 'funshare/src/pages/wishlist';
 
 
 class Routes {
@@ -45,11 +45,10 @@ class Routes {
   Home() {
     return {
       name: "Home",
-      title: "Home",
+      
       component: Home,
-      leftButton: button,
-      rightButton:  PostButton,
-      hideNavigationBar: false,
+      
+      hideNavigationBar: true,
       statusBarStyle: "light-content"
     }
   }
@@ -59,19 +58,34 @@ class Routes {
       name: "signup",
       title: "signup",
       component: signup,
-      hideNavigationBar: false,
+      hideNavigationBar: true,
+      rednav:false,
       statusBarStyle: "light-content"
     }
   }
 
- account() {
+  setting() {
+    return {
+      name: "setting",
+      
+      component: setting,
+    }
+  }
+  account() {
     return {
       name: "account",
-      title: "account",
+      
       component: account,
-      leftButton: button,
-      rightButton: button,
-      hideNavigationBar: false,
+      
+      
+    }
+  }
+  wishlist() {
+    return {
+      name: "wishlist",
+      
+      component: wishlist,
+      
       statusBarStyle: "light-content"
     }
   }
@@ -80,23 +94,23 @@ class Routes {
       name: "onboarding",
       title: "Welcome",
       component: Onboarding,
-      leftButton: button,
-      rightButton: OnboardingButton,
+      
       passProps: { user: user },
-      hideNavigationBar: false,
+      
       statusBarStyle: "light-content"
     }
   }
 
-Home1(user) {
+  Home1(user) {
     return {
       name: "Home1",
-      title: ProfileIcon,
+      
       component: Home1,
-      rightButton: Ico,
-      leftButton: ProfileIcon,
+      
+      
       passProps: { user: user },
-      hideNavigationBar: false,
+      
+      
       statusBarStyle: "light-content"
     }
   }
@@ -105,27 +119,35 @@ Home1(user) {
       name: "signup",
       title: "signup",
       component: fuck,
-      hideNavigationBar: true,
+      
       passProps: { desc:desc , piclink :piclink,title:title },
       statusBarStyle: "light-content"
     }
   }
-mystuff() {
+  mystuff() {
     return {
       name: "mystuff",
-      title: mystuff,
+      
       component: mystuff,
-      rightButton: plus,
-      leftButton: fertig,
-      hideNavigationBar: false,
+      
+      
       statusBarStyle: "light-content"
     }
   } 
   addstuff() {
     return {
+     
       name: "addstuff",
       component: addstuff,
-      hideNavigationBar: true,
+      
+    }
+  }
+  search() {
+    return {
+      
+      name: "search",
+      component: search,
+      
     }
   }
   

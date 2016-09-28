@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 
 import  {StyleSheet, Text, View, Image} from 'react-native';
-
+  import IcoButton from 'funshare/src/components/icobutton';
 import SwipeCards from 'react-native-swipe-cards';
 import firebase from 'firebase';
  import Routes from 'funshare/Routes';
@@ -15,10 +15,24 @@ var Cards = [
 
 let Card = React.createClass({
   render() {
+
     return (
+      <View>
       <View style={styles.card}>
         <Image style={styles.thumbnail} source={{uri: this.props.image}} />
-        <Text style={styles.text}>This is card {this.props.name}</Text>
+        <View  style={{margin:10 ,flex:1, flexDirection:'row' ,  borderBottomWidth:0.5 , borderBottomColor:'#dcdcdc'}}>
+        <View style={{flex:0.8 , alignItems:'flex-start'}}>
+        <Text style={styles.text}>Antika Komode </Text>
+          </View>
+          <View style={{flex:0.2 , alignItems:'flex-end'}}>
+   <Image 
+    source={require('funshare/src/img/tools.png')} 
+    style={{width:15,height:16}}  
+    />
+        </View>
+         </View>
+      </View>
+    
       </View>
     )
   }
@@ -90,6 +104,7 @@ export default React.createClass({
 
     },
 
+
   getInitialState() {
     return {
       cards: Cards,
@@ -122,11 +137,11 @@ export default React.createClass({
     }
 
   },
-  render() {
+   render() {
 
-
+  
     return (
-      <View style={{flex:1}}>
+      <View style={{flex:3}}>
           <SwipeCards
         cards={this.state.cards}
         loop={false}
@@ -164,8 +179,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
-    paddingTop: 10,
-    paddingBottom: 10
+    padding:10,
   },
   noMoreCards: {
     flex: 1,

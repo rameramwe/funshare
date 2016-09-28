@@ -2,6 +2,7 @@
 
   import React, { Component } from 'react';
   import {
+     Platform,
     AppRegistry,
     StyleSheet,
     Text,
@@ -9,170 +10,239 @@
     Image,
     TouchableHighlight,
     Dimensions,
+    TouchableOpacity,
     ScrollView
   } from 'react-native';
-
-  var deviceWidth = Dimensions.get('window').width -6;
-  var deviceheight = Dimensions.get('window').height -(deviceWidth/2) ;
-  var temp = 'http://thumbs.dreamstime.com/z/close-up-angry-chihuahua-growling-2-years-old-15126199.jpg'
   import Routes from 'funshare/Routes';
-  var piclinks=["fuck"];
-  var image=[] ;
+  import style from '../styles/common-styles.js';
+  import {GiftedChat, Actions, Bubble} from 'react-native-gifted-chat';
+  import IcoButton from 'funshare/src/components/icobutton';
+  import Firebase from 'firebase';
+  import CustomActions from 'funshare/src/CustomActions';
+  import CustomView from 'funshare/src/CustomView';
 
   export default class mystuff extends Component {
 
-    rami() {
-
-     
-      return new Promise((next, error) => {
-        //alert(this.fuck());
-        var self = this; 
-       var i = 0;
-       var num=0;
-       var uid = firebase.auth().currentUser.uid;
-       firebase.database()
-       .ref('items')
-       .child(uid)
-       .once('value')
-       .then(function(snapshot) {
-         num =snapshot.numChildren();
-        // alert(num);
-         snapshot.forEach(function(childSnapshot) {
-            
-          firebase.database()
-          .ref('items')
-          .child(uid).child(childSnapshot.key).once('value').then(function(snapshot) {
-            var piclink = snapshot.val().itemPic;
-            var desc = snapshot.val().description;
-            var title = snapshot.val().title;
-            
-            piclinks.push(piclink);
-            image.push(
-              <TouchableHighlight
-              activeOpacity={ 0.75 }
-              style={ styles.item }
-              onPress={self.fuck.bind(this,desc,piclink,title)}
-              >
-              <Image
-              style={ styles.image }
-              source={{uri: piclink}}
-              /> 
-              
-              </TouchableHighlight>);
-            
-            i++;
-            if (i==num){
-              var rm = "i fucked my self";
-
-              next(rm);
-            }
-
-          });
-          
-        })
-         
-    // ...
-  });
-    //  alert(this.state.image[0]);
-    
-     // piclinks[1]="piclink";
-     // alert(piclinks[1]);
-     //alert(piclinks[0]);
-   }); 
-    }
-    fuck(desc,piclink,title){
-  
-
-     this.props.replaceRoute(Routes.fuck(desc,piclink,title));
-     // alert(desc + title + piclink);
-
-  }
-    _renderImage(){
-
-      
-     this.rami().then((rm) => {
-    //alert(piclinks[1]);
-    //should find a better way to do this 
-    if (!this.state.loaded){
-      this.setState({
-        loaded:true
-      });
-      
-    }
-
-  });
-  //alert(image.length);
-  return image;
-
-  }
-
-  constructor(props) {
+   constructor(props) {
     super(props);
-    this.rami = this.rami.bind(this);
-    this.fuck = this.fuck.bind(this);
     this.state = {
-     image: ["null"],
-     hi: "hi",
-     loaded:false
-   };
-  }
-  render(){
-   
+      messages: [],
+      loadEarlier: true,
+      typingText: null,
+      isLoadingEarlier: false,
+    };
 
-    return (
+    this._isMounted = false;
+    this.onSend = this.onSend.bind(this);
+    this.onReceive = this.onReceive.bind(this);
+    this.renderCustomActions = this.renderCustomActions.bind(this);
+    this.renderBubble = this.renderBubble.bind(this);
+    this.renderFooter = this.renderFooter.bind(this);
+    this.onLoadEarlier = this.onLoadEarlier.bind(this);
 
-     <ScrollView style={{ flex:1 }}>
-     <View style={styles.container}>
-     
-
-     {this._renderImage()}
-
-
-
-
-     </View>
-
-
-     </ScrollView>
-     );
-  }
+    this._isAlright = null;
   }
 
-  var styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      justifyContent: "center"
-    },
+  componentWillMount() {
+    this._isMounted = true;
+    this.setState(() => {
+      return {
+        messages: require('funshare/src/data/messages.js'),
+      };
+    });
+  }
 
-    item: {
-      backgroundColor: 'orange',
-      width: deviceWidth / 2,
-      height: (deviceheight / 2),
-      borderColor: 'green',
-      borderWidth: 1,
-      marginTop:5,
-
-    },
-
-    edit: {
-      position: 'absolute',
-      height:10,
-      width:10,
-      top:0,
-      left:0
-    },
-
-
-    image: {
-      flex:1,
-      alignItems: "center",
-      justifyContent: "center",
-      width: (deviceWidth/2)-2,
-      height: (deviceheight/2) ,
+  componentWillUnmount() {
+    this._isMounted = false;
+    alert(this.state.messages);
+  }
+   componentDidMount() {
+   Firebase.database().ref('messages/').on('value',(snapshot)=> {
+    const currentMessages=snapshot.val()
+    if (currentMessages!= null){
+      this.setState({
+        messages:currentMessages
+      })
     }
-  });
+   })
+  }
 
-  AppRegistry.registerComponent('mystuff', () => mystuff);
+  onLoadEarlier() {
+    this.setState((previousState) => {
+      return {
+        isLoadingEarlier: true,
+      };
+    });
 
+    setTimeout(() => {
+      if (this._isMounted === true) {
+        this.setState((previousState) => {
+          return {
+            messages: GiftedChat.prepend(previousState.messages, require('funshare/src/data/old_messages.js')),
+            loadEarlier: false,
+            isLoadingEarlier: false,
+          };
+        });
+      }
+    }, 1000); // simulating network
+  }
+
+  onSend(messages = []) {
+    this.setState((previousState) => {
+      return {
+        messages: GiftedChat.append(previousState.messages, messages),
+      };
+    });
+
+    // for demo purpose
+    this.answerDemo(messages);
+  }
+
+  answerDemo(messages) {
+    if (messages.length > 0) {
+      if ((messages[0].image || messages[0].location) || !this._isAlright) {
+        this.setState((previousState) => {
+          return {
+            typingText: 'React Native is typing'
+          };
+        });
+      }
+    }
+
+    setTimeout(() => {
+      if (this._isMounted === true) {
+        if (messages.length > 0) {
+          if (messages[0].image) {
+            this.onReceive('Nice picture!');
+          } else if (messages[0].location) {
+            this.onReceive('My favorite place');
+          } else {
+            if (!this._isAlright) {
+              this._isAlright = true;
+              this.onReceive('Alright');
+            }
+          }
+        }
+      }
+
+      this.setState((previousState) => {
+        return {
+          typingText: null,
+        };
+      });
+    }, 1000);
+  }
+
+  onReceive(text) {
+    this.setState((previousState) => {
+      Firebase.database().ref('messages').set(previousState);
+      return {
+        messages: GiftedChat.append(previousState.messages, {
+          _id: Math.round(Math.random() * 1000000),
+          text: text,
+          createdAt: new Date(),
+          user: {
+            _id: 2,
+            name: 'React Native',
+           avatar: 'https://facebook.github.io/react/img/logo_og.png',
+          },
+        }),
+      };
+    });
+  }
+
+  renderCustomActions(props) {
+    if (Platform.OS === 'ios') {
+      return (
+        <CustomActions
+          {...props}
+        />
+      );
+    }
+    const options = {
+      'Action 1': (props) => {
+        alert('option 1');
+      },
+      'Action 2': (props) => {
+        alert('option 2');
+      },
+      'Cancel': () => {},
+    };
+    return (
+      <Actions
+        {...props}
+        options={options}
+      />
+    );
+  }
+
+  renderBubble(props) {
+    return (
+      <Bubble
+        {...props}
+        wrapperStyle={{
+          left: {
+            backgroundColor: '#f0f0f0',
+          }
+        }}
+      />
+    );
+  }
+
+  renderCustomView(props) {
+    return (
+      <CustomView
+        {...props}
+      />
+    );
+  }
+
+  renderFooter(props) {
+    if (this.state.typingText) {
+      return (
+        <View style={styles.footerContainer}>
+          <Text style={styles.footerText}>
+            {this.state.typingText}
+          </Text>
+        </View>
+      );
+    }
+    return null;
+  }
+
+  render() {
+    return (
+      <GiftedChat
+        messages={this.state.messages}
+        onSend={this.onSend}
+        loadEarlier={this.state.loadEarlier}
+        onLoadEarlier={this.onLoadEarlier}
+        isLoadingEarlier={this.state.isLoadingEarlier}
+
+        user={{
+          _id: 1, // sent messages should have same user._id
+        }}
+
+        renderActions={this.renderCustomActions}
+        renderBubble={this.renderBubble}
+        renderCustomView={this.renderCustomView}
+        renderFooter={this.renderFooter}
+      />
+    );
+  }
+}
+
+const styles = StyleSheet.create({
+  footerContainer: {
+    marginTop: 5,
+    marginLeft: 10,
+    marginRight: 10,
+    marginBottom: 10,
+  },
+  footerText: {
+    fontSize: 14,
+    color: '#aaa',
+  },
+});
+
+AppRegistry.registerComponent('mystuff', () => mystuff);
